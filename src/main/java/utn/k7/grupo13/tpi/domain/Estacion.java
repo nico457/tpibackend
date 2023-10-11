@@ -16,4 +16,5 @@ public class Estacion {
     private LocalDate fechaHoraCreacion;
     private double latitud;
     private double longitud;
+
 }

@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface AlquilerService {
     public Optional<Alquiler> alquilarBicicleta(Long idEstacion, String idCliente, Long idEstacionDevolucion);
+    public Optional<Alquiler> devolverBicicleta(Long idEstacion, Long idAlquiler);
 }

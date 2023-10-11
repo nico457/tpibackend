@@ -32,5 +32,15 @@ public class AlquilerServiceImpl implements AlquilerService{
         return Optional.of(alquilerRepository.save(alquiler));
 
     }
+
+    @Override
+    public Optional<Alquiler> devolverBicicleta(Long idEstacion, Long idAlquiler) {
+        Alquiler alquiler = alquilerRepository.findById(idAlquiler).get();
+        //alquiler.setEstacionDevolucion(estacionService.getEstacionById(idEstacion).get());
+        alquiler.setFechaHoraDevolucion(LocalDate.now());
+        alquiler.setEstado(EstadoAlquiler.FINALIZADO.getValor());
+        //alquiler.setMonto(calcularMonto(alquiler));
+        return Optional.of(alquilerRepository.save(alquiler));
+    }
 }
 

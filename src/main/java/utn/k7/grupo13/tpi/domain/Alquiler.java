@@ -18,18 +18,21 @@ public class Alquiler {
     private String idCliente;
     private int estado;
 
-    @PrimaryKeyJoinColumn(name = "estacion_retiro")
+
     @OneToOne
+    @JoinColumn(name = "estacion_retiro")
     private Estacion estacionRetiro;
 
-    @PrimaryKeyJoinColumn(name = "estacion_devolucion")
+
     @OneToOne
+    @JoinColumn(name = "estacion_devolucion")
     private Estacion estacionDevolucion;
     private LocalDate fechaHoraRetiro;
     private LocalDate fechaHoraDevolucion;
     private double monto;
-    @PrimaryKeyJoinColumn(name = "id_tarifa")
+
     @OneToOne
+    @JoinColumn(name = "id_tarifa")
     private Tarifa idTarifa;
 
     public Alquiler(String idCliente, int estado, Estacion estacionRetiro, Estacion estacionDevolucion, LocalDate fechaHoraRetiro, LocalDate fechaHoraDevolucion, double monto, Tarifa idTarifa) {

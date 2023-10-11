@@ -42,4 +42,24 @@ public class AlquilerController {
              return ResponseHandler.badRequest("No se pudo crear el alquiler");
          }
     }
+    @PutMapping("/{idAlquiler}")
+    public ResponseEntity<Object> devolverBicicleta(@PathVariable Long id, @PathVariable Long idAlquiler) {
+        Optional<Alquiler> alquiler = alquilerService.devolverBicicleta(id, idAlquiler);
+        if(alquiler.isPresent()){
+            return ResponseHandler.success(new AlquilerResponse(
+                    alquiler.get().getId(),
+                    alquiler.get().getIdCliente(),
+                    alquiler.get().getEstado(),
+                    alquiler.get().getEstacionRetiro(),
+                    alquiler.get().getEstacionDevolucion(),
+                    alquiler.get().getFechaHoraRetiro(),
+                    alquiler.get().getFechaHoraDevolucion(),
+                    alquiler.get().getMonto(),
+                    alquiler.get().getIdTarifa()
+            ));
+
+        }else {
+            return ResponseHandler.badRequest("No se pudo devolver la bicicleta");
+        }
+    }
 }
