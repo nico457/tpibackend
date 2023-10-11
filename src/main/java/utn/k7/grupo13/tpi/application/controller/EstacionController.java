@@ -3,6 +3,7 @@ package utn.k7.grupo13.tpi.application.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.k7.grupo13.tpi.application.ResponseHandler;
+import utn.k7.grupo13.tpi.application.response.EstacionesResponse;
 import utn.k7.grupo13.tpi.domain.Estacion;
 import utn.k7.grupo13.tpi.service.EstacionService;
 
@@ -29,7 +30,15 @@ public class EstacionController {
 
         Optional<List<Estacion>> estaciones = estacionService.getAllEstaciones();
         if (estaciones.isPresent()) {
-            return ResponseHandler.success(estaciones.get());
+            return ResponseHandler.success(
+                    estaciones.get().stream().map(estacion -> new EstacionesResponse(
+                            estacion.getId(),
+                            estacion.getNombre(),
+                            estacion.getFechaHoraCreacion(),
+                            estacion.getLatitud(),
+                            estacion.getLongitud()
+
+                    )).toList());
         } else {
             return ResponseHandler.notFound("No se encontraron estaciones");
         }
@@ -38,7 +47,13 @@ public class EstacionController {
     public ResponseEntity<Object> publicarEstacion(@RequestBody Estacion estacion) {
         Optional<Estacion> estacionPublicada = estacionService.publicarEstacion(estacion);
         if (estacionPublicada.isPresent()) {
-            return ResponseHandler.created(estacionPublicada.get());
+            return ResponseHandler.created(new EstacionesResponse(
+                    estacionPublicada.get().getId(),
+                    estacionPublicada.get().getNombre(),
+                    estacionPublicada.get().getFechaHoraCreacion(),
+                    estacionPublicada.get().getLatitud(),
+                    estacionPublicada.get().getLongitud()
+            ));
         } else {
             return ResponseHandler.badRequest("No se pudo publicar la estacion");
         }

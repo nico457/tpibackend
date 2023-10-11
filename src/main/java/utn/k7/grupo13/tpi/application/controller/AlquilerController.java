@@ -4,9 +4,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.k7.grupo13.tpi.application.ResponseHandler;
 import utn.k7.grupo13.tpi.application.request.PostAlquilerRequest;
+import utn.k7.grupo13.tpi.application.response.AlquilerResponse;
 import utn.k7.grupo13.tpi.domain.Alquiler;
 import utn.k7.grupo13.tpi.service.AlquilerService;
-import utn.k7.grupo13.tpi.service.EstacionService;
+
 
 import java.util.Optional;
 
@@ -25,7 +26,17 @@ public class AlquilerController {
                request.getIdCliente(),
                request.getIdEstacionDevolucion());
          if(alquiler.isPresent()){
-             return ResponseHandler.created(alquiler.get());
+             return ResponseHandler.created(new AlquilerResponse(
+                     alquiler.get().getId(),
+                     alquiler.get().getIdCliente(),
+                     alquiler.get().getEstado(),
+                     alquiler.get().getEstacionRetiro(),
+                     alquiler.get().getEstacionDevolucion(),
+                     alquiler.get().getFechaHoraRetiro(),
+                     alquiler.get().getFechaHoraDevolucion(),
+                     alquiler.get().getMonto(),
+                     alquiler.get().getIdTarifa()
+             ));
 
          }else {
              return ResponseHandler.badRequest("No se pudo crear el alquiler");
