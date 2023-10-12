@@ -6,6 +6,7 @@ import utn.k7.grupo13.tpi.domain.EstadoAlquiler;
 import utn.k7.grupo13.tpi.repository.AlquilerRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,5 +43,12 @@ public class AlquilerServiceImpl implements AlquilerService{
         //alquiler.setMonto(calcularMonto(alquiler));
         return Optional.of(alquilerRepository.save(alquiler));
     }
+
+    @Override
+    public Optional<List<Alquiler>> getAlquileresEstacion(Long id) {
+        return Optional.of(alquilerRepository.findByEstacionRetiroId(id));
+    }
+
+
 }
 

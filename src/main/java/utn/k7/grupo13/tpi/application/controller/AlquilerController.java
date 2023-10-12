@@ -9,6 +9,7 @@ import utn.k7.grupo13.tpi.domain.Alquiler;
 import utn.k7.grupo13.tpi.service.AlquilerService;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -62,4 +63,13 @@ public class AlquilerController {
             return ResponseHandler.badRequest("No se pudo devolver la bicicleta");
         }
     }
+    @GetMapping()
+    public ResponseEntity<Object> getAlquileresEstacion(@PathVariable Long id){
+        Optional<List<Alquiler>> alquileres = alquilerService.getAlquileresEstacion(id);
+        if(alquileres.isPresent()){
+            return ResponseHandler.success(alquileres.get());
+    }else {
+            return ResponseHandler.notFound("No se pudo obtener los alquileres");
+        }
+}
 }
