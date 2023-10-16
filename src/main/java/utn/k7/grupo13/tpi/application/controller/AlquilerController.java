@@ -3,6 +3,7 @@ package utn.k7.grupo13.tpi.application.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.k7.grupo13.tpi.application.ResponseHandler;
+import utn.k7.grupo13.tpi.application.request.PUTAlquilerRequest;
 import utn.k7.grupo13.tpi.application.request.PostAlquilerRequest;
 import utn.k7.grupo13.tpi.application.response.AlquilerResponse;
 import utn.k7.grupo13.tpi.domain.Alquiler;
@@ -34,7 +35,7 @@ public class AlquilerController {
                      alquiler.get().getEstacionDevolucion().getId(),
                      alquiler.get().getFechaHoraRetiro(),
                      alquiler.get().getFechaHoraDevolucion(),
-                     alquiler.get().getMonto(),
+                     null,
                      alquiler.get().getIdTarifa().getId()
              ));
 
@@ -43,8 +44,10 @@ public class AlquilerController {
          }
     }
     @PutMapping("/{idAlquiler}")
-    public ResponseEntity<Object> devolverBicicleta(@PathVariable Long id, @PathVariable Long idAlquiler) {
+    public ResponseEntity<Object> devolverBicicleta(@PathVariable Long id, @PathVariable Long idAlquiler, @RequestBody PUTAlquilerRequest request) {
         Optional<Alquiler> alquiler = alquilerService.devolverBicicleta(id, idAlquiler);
+        double monto =  alquiler.get().getMonto() * request.getMoneda().getValor();
+        monto = Math.round(monto * 100.0) / 100.0;
         if(alquiler.isPresent()){
             return ResponseHandler.success(new AlquilerResponse(
                     alquiler.get().getId(),
@@ -54,7 +57,7 @@ public class AlquilerController {
                     alquiler.get().getEstacionDevolucion().getId(),
                     alquiler.get().getFechaHoraRetiro(),
                     alquiler.get().getFechaHoraDevolucion(),
-                    alquiler.get().getMonto(),
+                    String.valueOf(monto) +" "+ request.getMoneda(),
                     alquiler.get().getIdTarifa().getId()
             ));
 

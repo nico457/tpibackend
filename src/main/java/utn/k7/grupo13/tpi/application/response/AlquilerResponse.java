@@ -22,6 +22,6 @@ public class AlquilerResponse {
     private Long estacionDevolucion;
     private LocalDateTime fechaHoraRetiro;
     private LocalDateTime fechaHoraDevolucion;
-    private double monto;
+    private String monto;
     private Long idTarifa;
 }
