@@ -3,6 +3,7 @@ package utn.k7.grupo13.tpi.application.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.k7.grupo13.tpi.application.ResponseHandler;
+import utn.k7.grupo13.tpi.application.request.PostEstacionRequest;
 import utn.k7.grupo13.tpi.application.response.EstacionesResponse;
 import utn.k7.grupo13.tpi.domain.Estacion;
 import utn.k7.grupo13.tpi.service.EstacionService;
@@ -44,8 +45,8 @@ public class EstacionController {
         }
     }
     @PostMapping
-    public ResponseEntity<Object> publicarEstacion(@RequestBody Estacion estacion) {
-        Optional<Estacion> estacionPublicada = estacionService.publicarEstacion(estacion);
+    public ResponseEntity<Object> publicarEstacion(@RequestBody PostEstacionRequest estacion) {
+        Optional<Estacion> estacionPublicada = estacionService.publicarEstacion(estacion.getNombre(), estacion.getLatitud(), estacion.getLongitud());
         if (estacionPublicada.isPresent()) {
             return ResponseHandler.created(new EstacionesResponse(
                     estacionPublicada.get().getId(),

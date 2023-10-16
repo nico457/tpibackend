@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -27,19 +28,18 @@ public class Alquiler {
     @OneToOne
     @JoinColumn(name = "estacion_devolucion")
     private Estacion estacionDevolucion;
-    private LocalDate fechaHoraRetiro;
-    private LocalDate fechaHoraDevolucion;
+    private LocalDateTime fechaHoraRetiro;
+    private LocalDateTime fechaHoraDevolucion;
     private double monto;
 
     @OneToOne
     @JoinColumn(name = "id_tarifa")
     private Tarifa idTarifa;
 
-    public Alquiler(String idCliente, int estado, Estacion estacionRetiro, Estacion estacionDevolucion, LocalDate fechaHoraRetiro, LocalDate fechaHoraDevolucion, double monto, Tarifa idTarifa) {
+    public Alquiler(String idCliente, int estado, Estacion estacionRetiro, LocalDateTime fechaHoraRetiro, LocalDateTime fechaHoraDevolucion, double monto, Tarifa idTarifa) {
         this.idCliente = idCliente;
         this.estado = estado;
         this.estacionRetiro = estacionRetiro;
-        this.estacionDevolucion = estacionDevolucion;
         this.fechaHoraRetiro = fechaHoraRetiro;
         this.fechaHoraDevolucion = fechaHoraDevolucion;
         this.monto = monto;

@@ -24,19 +24,18 @@ public class AlquilerController {
     @PostMapping
     public ResponseEntity<Object> alquilarBicicleta(@PathVariable Long id, @RequestBody PostAlquilerRequest request) {
        Optional<Alquiler> alquiler = alquilerService.alquilarBicicleta(id,
-               request.getIdCliente(),
-               request.getIdEstacionDevolucion());
+               request.getIdCliente());
          if(alquiler.isPresent()){
              return ResponseHandler.created(new AlquilerResponse(
                      alquiler.get().getId(),
                      alquiler.get().getIdCliente(),
                      alquiler.get().getEstado(),
-                     alquiler.get().getEstacionRetiro(),
-                     alquiler.get().getEstacionDevolucion(),
+                     alquiler.get().getEstacionRetiro().getId(),
+                     alquiler.get().getEstacionDevolucion().getId(),
                      alquiler.get().getFechaHoraRetiro(),
                      alquiler.get().getFechaHoraDevolucion(),
                      alquiler.get().getMonto(),
-                     alquiler.get().getIdTarifa()
+                     alquiler.get().getIdTarifa().getId()
              ));
 
          }else {
@@ -51,12 +50,12 @@ public class AlquilerController {
                     alquiler.get().getId(),
                     alquiler.get().getIdCliente(),
                     alquiler.get().getEstado(),
-                    alquiler.get().getEstacionRetiro(),
-                    alquiler.get().getEstacionDevolucion(),
+                    alquiler.get().getEstacionRetiro().getId(),
+                    alquiler.get().getEstacionDevolucion().getId(),
                     alquiler.get().getFechaHoraRetiro(),
                     alquiler.get().getFechaHoraDevolucion(),
                     alquiler.get().getMonto(),
-                    alquiler.get().getIdTarifa()
+                    alquiler.get().getIdTarifa().getId()
             ));
 
         }else {

@@ -22,7 +22,8 @@ public class EstacionServiceImpl implements EstacionService{
     }
 
     @Override
-    public Optional<Estacion>publicarEstacion(Estacion estacion) {
+    public Optional<Estacion>publicarEstacion(String nombre, double latitud, double longitud) {
+        Estacion estacion = new Estacion(nombre, latitud, longitud);
         return Optional.of(estacionRepository.save(estacion));
     }
 

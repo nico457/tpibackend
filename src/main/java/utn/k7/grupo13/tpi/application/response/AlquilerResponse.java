@@ -6,6 +6,8 @@ import utn.k7.grupo13.tpi.domain.Estacion;
 import utn.k7.grupo13.tpi.domain.Tarifa;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 
@@ -15,11 +17,11 @@ public class AlquilerResponse {
     private int estado;
 
 
-    private Estacion estacionRetiro;
+    private Long estacionRetiro;
 
-    private Estacion estacionDevolucion;
-    private LocalDate fechaHoraRetiro;
-    private LocalDate fechaHoraDevolucion;
+    private Long estacionDevolucion;
+    private LocalDateTime fechaHoraRetiro;
+    private LocalDateTime fechaHoraDevolucion;
     private double monto;
-    private Tarifa idTarifa;
+    private Long idTarifa;
 }

@@ -9,7 +9,7 @@ public interface EstacionService {
 
     public Optional<List<Estacion>> getAllEstaciones();
 
-    public Optional<Estacion> publicarEstacion(Estacion estacion);
+    public Optional<Estacion> publicarEstacion(String nombre, double latitud, double longitud);
 
     public Optional<Estacion> getEstacionById(Long id);
 
