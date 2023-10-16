@@ -33,7 +33,7 @@ public class TarifaServiceImpl implements TarifaService{
     }
     public double calcularTarifa(Alquiler alquiler, Tarifa tarifa) {
         LocalDateTime fecha_actual = LocalDateTime.now();
-        Duration duracion = Duration.between(fecha_actual, alquiler.getFechaHoraRetiro());
+        Duration duracion = Duration.between(alquiler.getFechaHoraRetiro(), fecha_actual);
 
        //cantidad de horas y minutos que duro el alquiler
        Long duracion_horas = duracion.toHours();
