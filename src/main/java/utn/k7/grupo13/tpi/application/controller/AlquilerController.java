@@ -61,7 +61,7 @@ public class AlquilerController {
                     alquiler.get().getEstacionDevolucion().getId(),
                     alquiler.get().getFechaHoraRetiro(),
                     alquiler.get().getFechaHoraDevolucion(),
-                    String.valueOf(monto) +" "+ request.getMoneda(),
+                    monto +" "+ request.getMoneda(),
                     alquiler.get().getIdTarifa().getId()
             ));
 
