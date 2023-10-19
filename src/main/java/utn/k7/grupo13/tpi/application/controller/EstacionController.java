@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.k7.grupo13.tpi.application.ResponseHandler;
 import utn.k7.grupo13.tpi.application.request.PostEstacionRequest;
+import utn.k7.grupo13.tpi.application.request.UbiRequest;
 import utn.k7.grupo13.tpi.application.response.EstacionesResponse;
 import utn.k7.grupo13.tpi.domain.Estacion;
 import utn.k7.grupo13.tpi.service.EstacionService;
@@ -27,8 +28,23 @@ public class EstacionController {
 
 
     @GetMapping
-    public ResponseEntity<Object> getAllEstaciones() {
+    public ResponseEntity<Object> getAllEstaciones(@RequestBody(required = false) UbiRequest request) {
 
+        if(request != null){
+            Optional<Estacion> estacionCercana = estacionService.getEstacionCercana(request.getLatitud(), request.getLongitud());
+            if (estacionCercana.isPresent()) {
+                return ResponseHandler.success(
+                        new EstacionesResponse(
+                                estacionCercana.get().getId(),
+                                estacionCercana.get().getNombre(),
+                                estacionCercana.get().getFechaHoraCreacion(),
+                                estacionCercana.get().getLatitud(),
+                                estacionCercana.get().getLongitud()
+                        ));
+            } else {
+                return ResponseHandler.notFound("No se encontraron estaciones");
+            }
+        }
         Optional<List<Estacion>> estaciones = estacionService.getAllEstaciones();
         if (estaciones.isPresent()) {
             return ResponseHandler.success(
