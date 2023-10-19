@@ -34,8 +34,28 @@ public class EstacionServiceImpl implements EstacionService{
 
     @Override
     public double calcularDistancia(double lat1, double lon1, double lat2, double lon2) {
-        //distancia euclidea
-        return Math.sqrt(Math.pow(lat2-lat1,2)+Math.pow(lon2-lon1,2));
+        // Conversión de grados a metros (asumiendo que 1 grado = 110,000 metros)
+        double LatitudMetros = Math.abs(lat1 - lat2) * 110;
+        double LongitudMetros = Math.abs(lon1 - lon2) * 110;
+
+        // Distancia euclídea
+        return Math.sqrt(Math.pow(LatitudMetros, 2) + Math.pow(LongitudMetros, 2));
+
+
+
+    }
+
+    @Override
+    public Optional<Estacion> getEstacionCercana(double latitud, double longitud) {
+        //devolver optional empty si no se encuentra una estacion cercana
+       return getAllEstaciones().get().stream()
+                .min((estacion1, estacion2) -> {
+                    double distancia1 = calcularDistancia(estacion1.getLatitud(), estacion1.getLongitud(), latitud, longitud);
+                    double distancia2 = calcularDistancia(estacion2.getLatitud(), estacion2.getLongitud(), latitud, longitud);
+                    return Double.compare(distancia1, distancia2);
+                });
+
+
     }
 
 }

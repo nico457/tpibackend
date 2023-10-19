@@ -14,4 +14,6 @@ public interface EstacionService {
     public Optional<Estacion> getEstacionById(Long id);
 
     public double calcularDistancia(double lat1, double lon1, double lat2, double lon2);
+
+    public Optional<Estacion> getEstacionCercana(double latitud, double longitud);
 }

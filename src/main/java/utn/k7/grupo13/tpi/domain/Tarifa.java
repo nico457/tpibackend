@@ -14,12 +14,14 @@ public class Tarifa {
     private int tipoTarifa;
     private String definicion;
     private int diaSemana;
-    private int diaMes;
-    private int mes;
-    private int anio;
+    private Integer diaMes;
+    private Integer mes;
+    private Integer anio;
     private double montoFijoAlquiler;
     private double montoMinutoFraccion;
     private double montoKm;
     private double montoHora;
+
+
 
 }

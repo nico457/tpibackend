@@ -33,11 +33,11 @@ public class AlquilerController {
                      alquiler.get().getIdCliente(),
                      alquiler.get().getEstado(),
                      alquiler.get().getEstacionRetiro().getId(),
-                     alquiler.get().getEstacionDevolucion().getId(),
+                     null,
                      alquiler.get().getFechaHoraRetiro(),
                      alquiler.get().getFechaHoraDevolucion(),
                      null,
-                     alquiler.get().getIdTarifa().getId()
+                     null
              ));
 
          }else {
