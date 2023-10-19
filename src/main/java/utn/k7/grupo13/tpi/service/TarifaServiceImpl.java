@@ -12,10 +12,12 @@ import java.util.Optional;
 @Service
 public class TarifaServiceImpl implements TarifaService{
     private TarifaRepository tarifaRepository;
+    private EstacionService estacionService;
 
 
-    public TarifaServiceImpl(TarifaRepository tarifaRepository) {
+    public TarifaServiceImpl(TarifaRepository tarifaRepository, EstacionService estacionService) {
         this.tarifaRepository = tarifaRepository;
+        this.estacionService = estacionService;
     }
 
 
@@ -46,18 +48,30 @@ public class TarifaServiceImpl implements TarifaService{
 
         //monto fijo
         tarifa_total += tarifa.getMontoFijoAlquiler();
+        System.out.println(tarifa_total);
 
         //monto por hora y minutos
         if(duracion_minutos >= 31 ){
             tarifa_total += tarifa.getMontoHora() * (duracion_horas + 1);
+            System.out.println(tarifa_total);
 
 
         }else {
             tarifa_total += tarifa.getMontoHora() * duracion_horas;
             tarifa_total += tarifa.getMontoMinutoFraccion() * duracion_minutos;
+            System.out.println(tarifa_total);
         }
 
         //falta calcular el monto por km
+        tarifa_total += estacionService.calcularDistancia(
+                alquiler.getEstacionRetiro().getLatitud(),
+                alquiler.getEstacionRetiro().getLongitud(),
+                alquiler.getEstacionDevolucion().getLatitud(),
+                alquiler.getEstacionDevolucion().getLongitud())
+                * tarifa.getMontoKm();
+        System.out.println(tarifa_total);
+
+
 
         return tarifa_total;
     }
