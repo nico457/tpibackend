@@ -62,7 +62,7 @@ public class TarifaServiceImpl implements TarifaService{
             System.out.println(tarifa_total);
         }
 
-        //falta calcular el monto por km
+
         tarifa_total += estacionService.calcularDistancia(
                 alquiler.getEstacionRetiro().getLatitud(),
                 alquiler.getEstacionRetiro().getLongitud(),
