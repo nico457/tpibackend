@@ -70,8 +70,8 @@ public class AlquilerController {
         }
     }
     @GetMapping()
-    public ResponseEntity<Object> getAlquileresEstacion(@PathVariable Long id){
-        Optional<List<Alquiler>> alquileres = alquilerService.getAlquileresEstacion(id);
+    public ResponseEntity<Object> getAlquileresEstacionEnCurso(@PathVariable Long id){
+        Optional<List<Alquiler>> alquileres = alquilerService.getAlquileresEstacionEnCurso(id);
         if(alquileres.isPresent()){
             return ResponseHandler.success(alquileres.get());
     }else {

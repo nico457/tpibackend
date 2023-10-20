@@ -49,8 +49,8 @@ public class AlquilerServiceImpl implements AlquilerService{
     }
 
     @Override
-    public Optional<List<Alquiler>> getAlquileresEstacion(Long id) {
-        return Optional.of(alquilerRepository.findByEstacionRetiroId(id));
+    public Optional<List<Alquiler>> getAlquileresEstacionEnCurso(Long id) {
+        return Optional.of(alquilerRepository.findByEstacionRetiroIdAndEstado(id,EstadoAlquiler.INICIADO.getValor()));
     }
 
 
